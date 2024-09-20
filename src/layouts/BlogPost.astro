@@ -36,7 +36,7 @@ const articleDate = pubDate.toISOString()
 						- {readTime}
 					</p>
 				</div>
-				<h1 class='text-center text-3xl sm:text-4xl md:text-6xl md:pb-2.5 font-semibold'>
+				<h1 class='text-center text-4xl md:text-6xl md:pb-2.5 font-semibold'>
 					{title}
 				</h1>
 			</div>
@@ -46,24 +46,26 @@ const articleDate = pubDate.toISOString()
 			</div>
 		</header>
 
-		{
-			heroImage && (
-				<Image
-					src={heroImage}
-					width={1000}
-					height={500}
-					quality={100}
-					format='jpg'
-					loading='eager'
-					class='rounded-md w-full max-h-[200px] sm:max-h-[300px] md:max-h-[500px] my-8 object-cover'
-					alt={`img of ${title}`}
-				/>
-			)
-		}
+		<>
+			{
+				heroImage && (
+					<Image
+						src={heroImage}
+						width={1000}
+						height={500}
+						quality={100}
+						format='jpg'
+						loading='eager'
+						class='rounded-md w-full max-h-[300px]  md:max-h-[500px] my-8 object-cover'
+						alt={`img of ${title}`}
+					/>
+				)
+			}
+		</>
 
 		<hr />
 
-		<div class='prose prose-sm sm:prose lg:prose-lg dark:prose-invert max-w-none'>
+		<div>
 			<slot />
 		</div>
 	</article>
