@@ -1,14 +1,17 @@
 /* @import 'katex/dist/katex.min.css'; */
 
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-	/* body {
-		transition: background-color 0.5s ease;
-	} */
+	body {
+		@apply overflow-x-hidden;
+	}
+	
+	main {
+		@apply max-w-full;
+	}
 
 	.prose code {
 		@apply text-base;
@@ -21,13 +24,13 @@
 	h4,
 	h5,
 	h6 {
-		@apply text-zinc-800 dark:text-zinc-100   !important;
+		@apply text-zinc-800 dark:text-zinc-100 !important;
 	}
 
 	html.dark .shiki,
 	html.dark .shiki span {
-	  color: var(--shiki-dark) !important;
-	  background-color: theme(colors.gray.900) !important;
+		color: var(--shiki-dark) !important;
+		background-color: theme(colors.gray.900) !important;
 	}
 }
 
@@ -40,4 +43,16 @@
 
 .shadow {
 	box-shadow: -5px 3px 8px 1px rgba(0, 0, 0, 0.12);
+}
+
+.break-words {
+	overflow-wrap: break-word;
+	word-wrap: break-word;
+	-ms-word-break: break-all;
+	word-break: break-all;
+	word-break: break-word;
+	-ms-hyphens: auto;
+	-moz-hyphens: auto;
+	-webkit-hyphens: auto;
+	hyphens: auto;
 }

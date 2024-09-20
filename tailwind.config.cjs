@@ -14,6 +14,9 @@ module.exports = {
 			},
 			gridTemplateColumns: {
 				list: 'repeat(auto-fill, minmax(400px, max-content))'
+			},
+			screens: {
+				'xs': '475px',
 			}
 		}
 	},
