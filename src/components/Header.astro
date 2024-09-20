@@ -22,6 +22,7 @@ const SOCIALNETWORKS = [
 ---
 
 <header class='relative flex items-center justify-between h-12 font-semibold'>
+	<!-- Primary Navigation -->
 	<nav class='flex items-center gap-6'>
 		<HeaderLink href='/'>Home</HeaderLink>
 		<HeaderLink href='/about'>About</HeaderLink>
@@ -30,6 +31,7 @@ const SOCIALNETWORKS = [
 		</HeaderLink>
 	</nav>
 
+	<!-- Social, Search, and Theme Toggle -->
 	<div class='flex items-center gap-4'>
 		<div class='hidden md:flex items-center gap-3'>
 			{
@@ -44,15 +46,17 @@ const SOCIALNETWORKS = [
 		<Search />
 		<ToggleTheme />
 
+		<!-- Mobile Menu Button -->
 		<button id='astro-header-drawer-button' type='button' class='md:hidden'>
 			<MenuIcon />
 			<span class='sr-only'>Show Menu</span>
 		</button>
 	</div>
 
+	<!-- Mobile Navigation Drawer -->
 	<div
 		id='astro-header-drawer'
-		class='shadow rounded-l-lg md:hidden bg-white dark:bg-[#0a0910] absolute transition-transform duration-300 ease-in translate-x-96 top-12 -right-5 pl-4 pt-6 pb-4 h-[200px] w-[200px] z-50'
+		class='shadow rounded-l-lg md:hidden bg-white dark:bg-[#0a0910] absolute transition-transform duration-300 ease-in translate-x-full top-12 right-0 pl-4 pt-6 pb-4 h-[200px] w-[75vw] z-50'
 	>
 		<nav class='flex flex-col gap-4'>
 			<HeaderLink href='/'>Home</HeaderLink>
@@ -80,9 +84,9 @@ const SOCIALNETWORKS = [
 			menuButton?.contains(event.target as HTMLButtonElement)
 
 		if (isClickInside) {
-			menu?.classList.toggle('translate-x-96')
+			menu?.classList.toggle('translate-x-full') // Updated for full-screen mobile slide
 		} else {
-			menu?.classList.add('translate-x-96')
+			menu?.classList.add('translate-x-full') // Hides the menu off-screen
 		}
 	})
 </script>

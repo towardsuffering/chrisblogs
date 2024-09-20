@@ -1,17 +1,9 @@
 ---
-import type { CollectionEntry } from 'astro:content'
-import FormattedDate from '@/components/FormattedDate'
+// Add this import at the top of your `BlogPost.astro` file
+import FormattedDate from '../components/FormattedDate.astro'
 import BaseLayout from '@/layouts/BaseLayout'
 import Tag from '@/components/Tag'
-import type { MarkdownHeading } from 'astro'
 import { Image } from 'astro:assets'
-
-type Props = {
-	id: CollectionEntry<'blog'>['id']
-	data: CollectionEntry<'blog'>['data']
-	headings: MarkdownHeading[]
-	readTime: string
-}
 
 const { data, readTime, headings, id } = Astro.props
 const { title, description, pubDate, heroImage, tags } = data
@@ -25,8 +17,9 @@ const articleDate = pubDate.toISOString()
 	image={heroImage?.src}
 	articleDate={articleDate}
 >
-	<article class='min-w-full md:py-4 sm:max-w-none md:max-w-none'>
+	<article class='w-full md:py-4 sm:max-w-none md:max-w-none'>
 		<header class='mb-3 flex flex-col justify-center items-center gap-6'>
+			<!-- Title Section -->
 			<div class='flex flex-col gap-2'>
 				<div class='flex items-center justify-center gap-x-1'>
 					<p class='text-center text-sm text-opacity-50'>
@@ -36,16 +29,19 @@ const articleDate = pubDate.toISOString()
 						- {readTime}
 					</p>
 				</div>
-				<h1 class='text-center text-4xl md:text-6xl md:pb-2.5 font-semibold'>
+				<!-- Responsive Title -->
+				<h1 class='text-center text-2xl sm:text-4xl md:text-6xl md:pb-2.5 font-semibold'>
 					{title}
 				</h1>
 			</div>
 
+			<!-- Tags Section -->
 			<div class='flex flex-wrap justify-center items-center gap-2 gap-y-4 md:gap-5'>
 				{tags.map((tag) => <Tag tag={tag} />)}
 			</div>
 		</header>
 
+		<!-- Hero Image Section -->
 		<>
 			{
 				heroImage && (
@@ -56,70 +52,34 @@ const articleDate = pubDate.toISOString()
 						quality={100}
 						format='jpg'
 						loading='eager'
-						class='rounded-md w-full max-h-[300px]  md:max-h-[500px] my-8 object-cover'
+						class='rounded-md w-full max-h-[300px] sm:max-h-[400px] md:max-h-[500px] my-8 object-cover'
 						alt={`img of ${title}`}
 					/>
 				)
 			}
 		</>
 
+		<!-- Divider -->
 		<hr />
 
+		<!-- Slot for Content -->
 		<div>
 			<slot />
 		</div>
+
+		<!-- Mobile & Desktop Adjustments -->
+		<style>
+			@media (max-width: 768px) {
+				article {
+					padding: 15px;
+				}
+				h1 {
+					font-size: 1.75rem; /* Adjust title for smaller screens */
+				}
+				.heroImage {
+					max-height: 250px; /* Smaller max height for hero image on mobile */
+				}
+			}
+		</style>
 	</article>
 </BaseLayout>
-
-<script>
-	const fnObserver = () => {
-		function handleIntersection(
-			entries: IntersectionObserverEntry[],
-			observer: IntersectionObserver
-		) {
-			entries.forEach((entry) => {
-				const index = document.querySelector(`aside a[href="#${entry.target.id}"]`)
-
-				if (entry.isIntersecting) {
-					index?.classList.remove('bg-slate-200', 'dark:bg-slate-800') // remove bg
-					index?.classList.add(
-						'bg-indigo-600',
-						'dark:bg-indigo-700',
-						'text-white',
-						'font-bold',
-						'transition-colors',
-						'duration-200'
-					)
-				} else {
-					index?.classList.add('bg-slate-200', 'dark:bg-slate-800') // add bg
-					index?.classList.remove(
-						'bg-indigo-600',
-						'dark:bg-indigo-700',
-						'text-white',
-						'font-bold',
-						'transition-colors',
-						'duration-200'
-					)
-				}
-			})
-		}
-
-		const headings = document.querySelectorAll(
-			'div.prose h1, div.prose h2, div.prose h3, div.prose h4, div.prose h5, div.prose h6'
-		)
-
-		const options = {
-			root: null,
-			rootMargin: ' 15% 0px 0% 0px ',
-			threshold: 1
-		}
-
-		const observer = new IntersectionObserver(handleIntersection, options)
-
-		headings.forEach((heading) => {
-			observer.observe(heading)
-		})
-	}
-	fnObserver()
-	document.addEventListener('astro:after-swap', fnObserver)
-</script>

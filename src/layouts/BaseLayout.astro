@@ -25,6 +25,23 @@ import '../styles/global.css'
 			<slot />
 			<Footer />
 		</main>
+
+		<!-- Adding CSS for mobile optimization -->
+		<style>
+			body {
+				margin-left: calc(100vw - 100%); /* prevent layout shift */
+				overflow-x: hidden;
+			}
+
+			@media (max-width: 768px) {
+				main {
+					max-width: 100%; /* Full-width on mobile */
+					padding: 15px; /* Add mobile padding */
+					grid-gap: 8px; /* Tighter grid on mobile */
+				}
+			}
+		</style>
+
 		<TwSizeIndicator />
 		<EditBlog />
 		<style>
